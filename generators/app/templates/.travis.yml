@@ -1,0 +1,21 @@
+language: python
+python:
+- 3.6
+cache: pip
+
+addons:
+  apt:
+    packages:
+    - libffi-dev
+    - libssl-dev
+
+env:
+  global: []
+
+before_instal:
+- pip install -U setuptools pip
+
+script: nosetests
+
+after_success:
+- travis_retry coveralls

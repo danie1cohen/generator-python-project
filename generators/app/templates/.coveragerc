@@ -1,0 +1,27 @@
+[run]
+branch = True
+
+[paths]
+source =
+    <%= projectName %>
+
+[report]
+fail_under = 50
+
+exclude_lines =
+    def __repr__
+    def __str__
+    pragma: no cover
+    raise NotImplementedError
+    except \(SystemExit, KeyboardInterrupt\)
+    except \(KeyboardInterrupt, SystemExit\)
+
+include =
+    <%= projectName %>/*
+
+omit =
+    **/migrations/**
+    **/tests/**
+
+[html]
+directory = cover
