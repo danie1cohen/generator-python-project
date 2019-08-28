@@ -2,12 +2,13 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const mkdirp = require('mkdirp');
 
 module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
     this.log(
-      yosay(`Welcome to the ${chalk.red('python-project')} generator!`)
+      yosay(`Welcome to your own ${chalk.red('python-project')} generator!`)
     );
 
     const prompts = [
@@ -40,7 +41,7 @@ module.exports = class extends Generator {
         name: 'email',
         message: 'What\'s your email?',
         default: ''
-      },
+      }
     ];
 
     return this.prompt(prompts).then(props => {
@@ -64,20 +65,21 @@ module.exports = class extends Generator {
       'requirements.txt',
       'setup.cfg',
       'setup.py',
+      'Vagrantfile',
     ];
 
     for (var i = 0; i < files.length; i++) {
       var templatePath = files[i];
       var destPath = templatePath;
 
-      if (destPath.includes('projectName') === true) {
+      if ( destPath.includes('projectName') === true ) {
         destPath = destPath.replace(
-            'projectName', this.props.projectName
+            /projectName/g, this.props.projectName
         );
       }
 
-      if ( destPath.endswith('/') ) {
-        this.fs.mkdir(destPath);
+      if ( destPath.endsWith('/') ) {
+        mkdirp.sync(destPath);
       } else {
         this.fs.copyTpl(
           this.templatePath(templatePath),
@@ -90,6 +92,6 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.installDependencies();
+    //this.installDependencies();
   }
 };
