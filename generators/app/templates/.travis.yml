@@ -12,7 +12,7 @@ addons:
 env:
   global: []
 
-before_instal:
+before_install:
 - pip install -U setuptools pip
 
 script: nosetests
